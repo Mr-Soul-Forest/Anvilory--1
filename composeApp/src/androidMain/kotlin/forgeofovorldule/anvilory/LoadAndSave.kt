@@ -7,20 +7,45 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.preference.PreferenceManager
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.encodeToString
+import android.content.SharedPreferences
+import kotlinx.datetime.LocalDate
+import androidx.compose.ui.graphics.Color
+import androidx.core.content.edit
 
-lateinit var appContext: Context
+@SuppressLint("StaticFieldLeak")
+var context: Context? = null
+
+fun initStorage(appContext: Context) {
+    context = appContext
+}
+
+private val prefs: SharedPreferences
+    get() = context!!.getSharedPreferences(save_file_name, Context.MODE_PRIVATE)
+private lateinit var editor: SharedPreferences.Editor
+
+actual fun openSaveFiles() {
+    editor = prefs.edit()
+}
+
+actual fun closeSaveFiles() {
+    editor.apply()
+}
 
 actual fun saveValue(value: Any, name: String) {
-    val prefs = PreferenceManager.getDefaultSharedPreferences(appContext)
-    val serialized = when (value) {
-        is String -> Json.encodeToString(value)
-        is Int -> Json.encodeToString(value)
-        is Boolean -> Json.encodeToString(value)
-        else -> Json.encodeToString(value.toString())
-    }
-    prefs.edit().putString(name, serialized).apply()
+    val serialized = value.savedElementToString()
+    editor.putString(name, serialized)
+}
+
+actual fun <T> loadValue(value: T, name: String): T {
+    val serialized =
+        context!!.getSharedPreferences(save_file_name, Context.MODE_PRIVATE).getString(name, null)
+            ?: return value
+
+    return serialized.loadedElementToVal(value)
+}
+
+actual fun deleteValue(name: String) {
+    prefs.edit { remove(name) }
 }

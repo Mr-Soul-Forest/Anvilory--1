@@ -116,7 +116,7 @@ fun PlotsContent(viewModel: AppViewModel) {
                                         .background(UIC_extra_light, RoundedCornerShape(35.6.dp))
                                         .clickable {
                                             language = languageItem
-                                            changeLanguage()
+                                            saveAllValues()
                                             expended = false
                                             viewModel.setStatus(AppStatus.LOADING)
                                         },

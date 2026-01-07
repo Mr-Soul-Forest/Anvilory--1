@@ -29,10 +29,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import anvilory.composeapp.generated.resources.Res
 import anvilory.composeapp.generated.resources.app_icon
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun LoadingContent(viewModel: AppViewModel) {
+    LaunchedEffect(Unit) {
+        loading(viewModel)
+    }
+
     Box(
         modifier = Modifier.fillMaxSize()
             .background(UIC_light),
@@ -68,12 +74,11 @@ fun LoadingContent(viewModel: AppViewModel) {
             )
         }
     }
-    LaunchedEffect(Unit) {
-        loading(viewModel)
-    }
 }
 
-fun loading (viewModel: AppViewModel) {
+private suspend fun loading(viewModel: AppViewModel) = withContext(Dispatchers.Default) {
+    loadAllValues()
     changeLanguage()
+    saveAllValues()
     viewModel.setStatus(AppStatus.PLOTS)
 }

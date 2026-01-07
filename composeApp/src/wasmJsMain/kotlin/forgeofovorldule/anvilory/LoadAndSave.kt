@@ -10,14 +10,20 @@
 package forgeofovorldule.anvilory
 
 import kotlinx.browser.localStorage
-import kotlinx.serialization.json.Json
+
+actual fun closeSaveFiles() {}
+actual fun openSaveFiles() {}
 
 actual fun saveValue(value: Any, name: String) {
-    val serialized = when (value) {
-        is String -> Json.encodeToString(value)
-        is Int -> Json.encodeToString(value)
-        is Boolean -> Json.encodeToString(value)
-        else -> Json.encodeToString(value.toString())
-    }
+    val serialized = value.savedElementToString()
     localStorage.setItem(name, serialized)
+}
+
+actual fun <T> loadValue(value: T, name: String): T {
+    val serialized = localStorage.getItem(name) ?: return value
+    return serialized.loadedElementToVal(value)
+}
+
+actual fun deleteValue(name: String) {
+    localStorage.removeItem(name)
 }
