@@ -80,6 +80,13 @@
 
 ---
 
+### Используемые материалы
+В проекте используется шрифт **[JetBrains Mono](https://www.jetbrains.com/lp/mono/)**, разработанный компанией JetBrains.
+Шрифт распространяется под лицензией **[SIL Open Font License 1.1](https://scripts.sil.org/OFL)**.
+Copyright © 2020 JetBrains s.r.o.
+
+---
+
 <p align="center">
   <b>Forge of Ovorldule © 2025</b>
 </p>
