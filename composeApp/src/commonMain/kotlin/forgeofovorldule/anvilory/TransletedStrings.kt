@@ -30,6 +30,8 @@ var ts_Title = "Title"
 var ts_Create_a_series = "Create a series"
 var ts_words = "words"
 var ts_Empty = "Empty"
+var ts_Export = "Export"
+var ts_Import = "Import"
 
 fun changeLanguage() {
     if (language == Languages.RU) {
@@ -54,6 +56,8 @@ fun changeLanguage() {
         ts_Create_a_series = "Создать серию"
         ts_words = "слов"
         ts_Empty = "Пусто"
+        ts_Export = "Экспорт"
+        ts_Import = "Импорт"
     } else {
         ts_New_plot = "New plot"
         ts_This_is_an_example_story = "This is an example story"
@@ -76,5 +80,7 @@ fun changeLanguage() {
         ts_Create_a_series = "Create a series"
         ts_words = "words"
         ts_Empty = "Empty"
+        ts_Export = "Export"
+        ts_Import = "Import"
     }
 }
