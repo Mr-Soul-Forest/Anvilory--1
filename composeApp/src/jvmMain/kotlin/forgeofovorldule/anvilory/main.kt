@@ -8,7 +8,8 @@ import androidx.compose.ui.window.application
 fun main() = application {
     Window(
         onCloseRequest = {
-            saveAllValues()
+            if (loadingIsGood)
+                saveAllValues()
             exitApplication()
         },
         title = "Anvilory",

@@ -76,9 +76,12 @@ fun LoadingContent(viewModel: AppViewModel) {
     }
 }
 
+var loadingIsGood = false
+
 private suspend fun loading(viewModel: AppViewModel) = withContext(Dispatchers.Default) {
     loadAllValues()
     changeLanguage()
     saveAllValues()
+    loadingIsGood = true
     viewModel.setStatus(AppStatus.PLOTS)
 }
